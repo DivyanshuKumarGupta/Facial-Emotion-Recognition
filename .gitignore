@@ -1,0 +1,31 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Model checkpoints and large weight files (keep only lightweight demo weights)
+models/*.pth
+!models/emotion_model_weights.pth
+checkpoints/
+
+# Data artifacts
+data/raw/
+*.csv.gz
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Output recordings / temporary runs
+results/
+runs/
