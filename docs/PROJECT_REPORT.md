@@ -1,4 +1,4 @@
-# Project Report: Real-Time Facial Emotion Recognition System (FER-2013)
+# Project Report: Real-Time Facial Emotion Recognition System 
 
 ---
 
