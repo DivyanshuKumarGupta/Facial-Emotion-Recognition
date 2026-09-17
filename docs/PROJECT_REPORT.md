@@ -211,7 +211,7 @@ The code is separated into packages according to their responsibilities:
 
 ---
 
-## 10. Screenshots / Results
+## 10. Results
 
 The current project results include:
 
