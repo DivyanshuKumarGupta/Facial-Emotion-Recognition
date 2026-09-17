@@ -78,7 +78,7 @@ The system is divided into five main modules.
 
 ## 5. Non-Functional Requirements
 
-1. **Performance**: The system is designed for real-time processing, targeting more than 25–30 FPS on standard multi-core CPUs.
+1. **Performance**: The system is designed for real-time processing, targeting more than 25-30 FPS on standard multi-core CPUs.
 2. **Usability & Portability**: Core operations can be run from the terminal without depending on a graphical desktop environment.
 3. **Reliability & Fault Tolerance**: The application handles cases such as frames with no detected faces and video streams ending earlier than expected.
 4. **Maintainability & Modularity**: Configuration, model code, preprocessing, prediction, visualization, and utility functions are kept in separate modules. Automated tests are also included.
