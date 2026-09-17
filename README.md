@@ -8,7 +8,6 @@
 
 An end-to-end, production-grade Computer Vision and Deep Learning system for real-time facial expression and emotion recognition. Built using a custom Deep Residual Convolutional Neural Network (`EmotionResidualCNN`) trained and evaluated on the **FER-2013** benchmark dataset.
 
-Designed strictly following the **VITyarthi "Build Your Own Project"** evaluation criteria, featuring pure **Command-Line Interface (CLI)** executability for headless environments alongside an interactive **Streamlit** dashboard.
 
 ---
 
