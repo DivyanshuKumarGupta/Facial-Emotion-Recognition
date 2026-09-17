@@ -310,4 +310,4 @@ tests/test_preprocessor.py::test_preprocessor_invalid_roi PASSED         [100%]
 
 ## Author
 **Divyanshu Kumar Gupta**  
-Vellore Institute of Technology (VIT)
+ VIT Bhopal University
