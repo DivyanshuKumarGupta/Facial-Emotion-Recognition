@@ -303,7 +303,6 @@ tests/test_preprocessor.py::test_preprocessor_invalid_roi PASSED         [100%]
 - **Project Report (Markdown)**: [docs/PROJECT_REPORT.md](docs/PROJECT_REPORT.md)
 - **Project Report (PDF)**: [docs/PROJECT_REPORT.pdf](docs/PROJECT_REPORT.pdf) *(Ready for portal submission)*
 - **Project Statement**: [statement.md](statement.md)
-- **Evaluation Rubric**: 100% compliant with VITyarthi guidelines.
 
 ---
 
