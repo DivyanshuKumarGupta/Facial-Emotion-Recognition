@@ -1,5 +1,10 @@
-# Real-Time Facial Emotion Recognition System
+## 👤 Student Details
+- **Name:** Divyanshu Kumar Gupta
+- **Registration Number:** 24BAI10028
+- **Course:** Computer Vision  
+- **Project Title:** Real-Time Facial Emotion Recognition System
 
+# Real-Time Facial Emotion Recognition System
 As part of the BYOP project, I built a facial expression recognition system in PyTorch and OpenCV using the FER-2013 dataset. It combines a custom Residual CNN (`EmotionResidualCNN`) with OpenCV face detection and CLAHE contrast enhancement, supporting both command-line execution and an interactive Streamlit web interface.
 
 ---
