@@ -3,62 +3,93 @@
 ---
 
 ## 1. Cover Page
-- **Project Title**: Real-Time Facial Emotion Recognition System using Deep Residual Convolutional Neural Networks (FER-2013)
-- **Course**: Computer Vision / Machine Learning (Flipped Course Evaluation)
+
+- **Project Title**: Real-Time Facial Emotion Recognition System
+- **Course**: Computer Vision
 - **Student Name**: Divyanshu Kumar Gupta
-- **Institution**: Vellore Institute of Technology (VIT) / VITyarthi Platform
-- **Date**: September 2026
+- **Registration Number**: 24BAI10028
+- **Institution**: VIT Bhopal University
+- **Date**: 18 September 2026
 - **Submission Type**: Build Your Own Project (BYOP) Capstone
 
 ---
 
 ## 2. Introduction
-Affective computing and human-centered artificial intelligence aim to bridge the communicative divide between computational systems and human emotional states. Facial expressions constitute approximately 55% of emotional messaging in interpersonal communication. Developing automated, low-latency, and illumination-robust computer vision models for facial emotion recognition (FER) unlocks transformative capabilities in human-computer interaction (HCI), medical diagnostics, automated proctoring, and consumer engagement tracking.
 
-This project presents an end-to-end Computer Vision system capable of classifying human emotional states in real-time from webcam streams, recorded videos, and static images into seven universal categories: **Angry, Disgust, Fear, Happy, Sad, Surprise, and Neutral**.
+Facial expressions carry a significant amount of information during human interaction. Because of this, recognizing expressions automatically can be useful when building systems that need to respond to people in a more natural way.
+
+In this project, I built a Computer Vision system that recognizes facial expressions from **webcam streams, recorded videos, and static images**. The model classifies a detected face into the seven emotion categories used by the FER-2013 dataset: **Angry, Disgust, Fear, Happy, Sad, Surprise, and Neutral**.
+
+The project combines traditional image-processing techniques with a deep learning model. OpenCV is used for face detection and preprocessing, while a custom Residual CNN is used for emotion classification.
 
 ---
 
 ## 3. Problem Statement
-Automated facial expression recognition in uncontrolled real-world environments suffers from three critical bottlenecks:
-1. **Intra-Class Variability and Inter-Class Subtlety**: Differences in age, ethnicity, facial geometry, and subtle muscle movements make discriminating between emotions like *Fear* and *Surprise* challenging.
-2. **Environmental & Illumination Noise**: Real-world video feeds present sharp shadows, overexposure, and low resolution that degrade high-frequency texture features.
-3. **Compute Constraints for Real-Time Video**: Standard heavyweight deep vision architectures (e.g., Vision Transformers or deep ResNet-152) impose substantial latency, rendering them unviable for real-time edge or CPU deployments without expensive GPUs.
 
-This project designs a lightweight yet expressive Residual CNN architecture coupled with Contrast Limited Adaptive Histogram Equalization (CLAHE) to deliver real-time inference (>30 FPS) with high fidelity.
+Facial emotion recognition becomes more difficult when the input comes from real-world environments instead of controlled datasets. Some of the main issues considered in this project are:
+
+1. **Variation between faces and expressions**  
+   People have different facial structures, and the same emotion can be expressed in slightly different ways. Some expressions can also look very similar, making classes such as *Fear* and *Surprise* harder to distinguish.
+
+2. **Lighting and image quality**  
+   Webcam and video inputs can contain shadows, uneven lighting, overexposure, or low-resolution faces. These changes can affect the visual features used by the classifier.
+
+3. **Real-time processing requirements**  
+   A model that is accurate but too slow is not very useful for live video. Large deep learning architectures can require considerable computational resources, so this project focuses on keeping the model relatively compact while still providing useful predictions.
+
+To address these issues, the project uses a lightweight Residual CNN together with **Contrast Limited Adaptive Histogram Equalization (CLAHE)** during preprocessing.
 
 ---
 
 ## 4. Functional Requirements
-1. **Module 1 - Face Localization & Alignment**:
-   - Automated detection of one or multiple human faces in unconstrained input frames.
-   - Bounding box extraction with dynamic padding margins to avoid clipping facial boundaries.
-2. **Module 2 - Image Preprocessing & Illumination Equalization**:
-   - Illumination correction using Contrast Limited Adaptive Histogram Equalization (CLAHE).
-   - Transformation to 48x48 single-channel grayscale representation.
-   - Data augmentation for training (random cropping, rotations, horizontal flips).
-3. **Module 3 - Deep Residual Emotion Classification**:
-   - Deep forward inference across 7 target classes with Softmax probability distributions.
-4. **Module 4 - Visual HUD Rendering & Overlay**:
-   - Dynamic bounding box rendering, confidence bars, class tags, and real-time FPS counter.
-5. **Module 5 - Multi-Mode CLI & Dashboard Interface**:
-   - Headless CLI interface for batch image evaluation, video rendering, model training, and unit tests.
-   - Interactive Streamlit dashboard for visual experimentation.
+
+The system is divided into five main modules.
+
+### 1. Module 1 - Face Localization & Alignment
+
+- Detect one or more faces from the input frame.
+- Extract a bounding box for every detected face.
+- Add padding around the detected region so that important parts of the face are less likely to be clipped.
+
+### 2. Module 2 - Image Preprocessing & Illumination Equalization
+
+- Apply **CLAHE** to improve local contrast.
+- Convert detected faces into a `48 × 48` grayscale representation.
+- Use random cropping, rotations, and horizontal flips during training as data augmentation.
+
+### 3. Module 3 - Deep Residual Emotion Classification
+
+- Pass the processed face through the Residual CNN.
+- Predict one of the seven target emotion classes.
+- Produce a Softmax probability distribution for the classes.
+
+### 4. Module 4 - Visual HUD Rendering & Overlay
+
+- Draw face bounding boxes.
+- Display the predicted class and confidence.
+- Show class probability information and the current FPS.
+
+### 5. Module 5 - Multi-Mode CLI & Dashboard Interface
+
+- Provide CLI commands for image prediction, video processing, training, evaluation, and testing.
+- Provide a Streamlit dashboard for interactive experimentation.
 
 ---
 
 ## 5. Non-Functional Requirements
-1. **Performance**: Real-time throughput exceeding 25–30 frames per second on standard multi-core CPUs.
-2. **Usability & Portability**: Fully executable from the terminal command line without requiring a graphical desktop environment.
-3. **Reliability & Fault Tolerance**: Graceful fallback when no faces are detected or when video streams terminate prematurely.
-4. **Maintainability & Modularity**: Adherence to modular software engineering standards with separated configuration, model, pipeline, and utility packages accompanied by automated unit test suites.
+
+1. **Performance**: The system is designed for real-time processing, targeting more than 25–30 FPS on standard multi-core CPUs.
+2. **Usability & Portability**: Core operations can be run from the terminal without depending on a graphical desktop environment.
+3. **Reliability & Fault Tolerance**: The application handles cases such as frames with no detected faces and video streams ending earlier than expected.
+4. **Maintainability & Modularity**: Configuration, model code, preprocessing, prediction, visualization, and utility functions are kept in separate modules. Automated tests are also included.
 
 ---
 
 ## 6. System Architecture
-The system follows a pipeline architecture comprising data ingestion, feature preprocessing, deep feature extraction, classification, and presentation:
 
-```
+The system follows a pipeline-based design. Input is first passed through face detection and preprocessing, then through the deep learning model, and finally to the output layer.
+
+```text
 +------------------+     +-------------------+     +---------------------+
 | Input Feed       | --> | Face Detection    | --> | Preprocessor        |
 | (Webcam/Img/Vid) |     | (Haar Cascade)    |     | (CLAHE + 48x48 Norm)|
@@ -76,7 +107,10 @@ The system follows a pipeline architecture comprising data ingestion, feature pr
 ## 7. Design Diagrams
 
 ### 7.1 Use Case Diagram
-- **Actors**: User / Evaluator, Video Camera / Image Source.
+
+The main actors and use cases for the system are:
+
+- **Actors**: User / Evaluator, Video Camera / Image Source
 - **Use Cases**:
   - `UC1`: Provide Image / Video via CLI
   - `UC2`: Launch Real-Time Webcam Stream
@@ -85,28 +119,30 @@ The system follows a pipeline architecture comprising data ingestion, feature pr
   - `UC5`: Execute Automated Test Suite
 
 ### 7.2 Process Flow / Workflow Diagram
-```
+
+```text
 Start -> Capture Frame -> Detect Faces
           |
-          +--> [Faces Found?] -- No  --> Return Clean Frame / Fallback Full ROI
+          +--> [Faces Found?] -- No --> Return Clean Frame / Fallback Full ROI
           |
           +--> Yes
                 |
                 v
-          Crop Face ROI -> Convert Grayscale -> CLAHE Equalization
+           Crop Face ROI -> Convert Grayscale -> CLAHE Equalization
                 |
                 v
-          Resize to 48x48 -> Normalize [-1, 1] -> PyTorch Tensor
+           Resize to 48x48 -> Normalize [-1, 1] -> PyTorch Tensor
                 |
                 v
-          Residual CNN Inference -> Softmax Class Probabilities
+           Residual CNN Inference -> Softmax Class Probabilities
                 |
                 v
-          Temporal Smoothing -> Annotate Bounding Box & HUD -> Display / Save
+           Temporal Smoothing -> Annotate Bounding Box & HUD -> Display / Save
 ```
 
 ### 7.3 Sequence Diagram
-```
+
+```text
 User -> Main CLI: python main.py predict --input image.jpg
 Main CLI -> FaceDetector: detect_faces(image)
 FaceDetector --> Main CLI: [bbox1, bbox2]
@@ -121,6 +157,9 @@ Main CLI --> User: Console Summary & JSON output
 ```
 
 ### 7.4 Class / Component Diagram
+
+The main components are:
+
 - `FaceDetector`: `detect_faces(frame: np.ndarray) -> List[Tuple]`
 - `ImagePreprocessor`: `crop_and_preprocess(frame, bbox) -> (np.ndarray, Tensor)`
 - `ResidualBlock(nn.Module)`: `forward(x: Tensor) -> Tensor`
@@ -131,69 +170,141 @@ Main CLI --> User: Console Summary & JSON output
 ---
 
 ## 8. Design Decisions & Rationale
-1. **PyTorch Framework Selection**: Selected for modular tensor processing, robust gradient computation, and transparent neural network definition.
-2. **Residual Skip Connections**: Standard shallow CNNs suffer from gradient vanishing when scaled. Introducing residual shortcuts allows identity gradient flow while maintaining a compact parameter footprint (~1.5M parameters).
-3. **Contrast Limited Adaptive Histogram Equalization (CLAHE)**: Real-world lighting variations introduce substantial domain shift. Applying CLAHE locally normalizes contrast without over-amplifying background noise.
-4. **Grayscale 48x48 Resolution**: Expression semantics are encoded in edge gradients and landmark geometry rather than chrominance. Restricting the input to 48x48 single-channel keeps computation under 15ms per face.
-5. **CLI-First Architecture**: Strictly satisfies the evaluator guideline penalizing submissions that require GUI-only configurations.
+
+### 1. PyTorch Framework Selection
+
+PyTorch was selected because it provides a straightforward way to define the network, work with tensors, train the model, and modify the architecture when needed.
+
+### 2. Residual Skip Connections
+
+The model uses residual connections to help information and gradients pass through the network more effectively. This makes it possible to use multiple convolutional stages without making the network unnecessarily large. The model has a compact parameter footprint of approximately **1.5M parameters**.
+
+### 3. Contrast Limited Adaptive Histogram Equalization (CLAHE)
+
+Lighting can change considerably between different images and video frames. CLAHE is used to improve local contrast before classification while limiting excessive amplification of noise.
+
+### 4. Grayscale 48x48 Resolution
+
+The project uses grayscale `48 × 48` inputs to keep the amount of computation low. Facial expression information is largely represented through structures such as edges, shapes, and relative positions of facial regions, so color is not required by this particular input pipeline.
+
+This also helps keep per-face processing lightweight, with the project targeting sub-15 ms inference.
+
+### 5. CLI-First Architecture
+
+The project was designed around a CLI so that the main operations can be executed without depending on a GUI. This also makes training, evaluation, testing, and batch processing easier to run from a terminal.
 
 ---
 
 ## 9. Implementation Details
-The project is organized into structured packages:
-- `config/config.py`: Centralized configuration, hyperparameter tuning, color maps, and emotion index labels.
-- `src/models/emotion_cnn.py`: `EmotionResidualCNN` architecture with 3 residual stages, dropout regularization, and dense classification layers.
-- `src/data/dataset.py`: FER-2013 data loader, augmentation pipeline, and reproducible benchmark generation.
-- `src/pipeline/face_detector.py`: OpenCV Haar Cascade frontal face localization with padding margins.
-- `src/pipeline/preprocessor.py`: Face cropping, CLAHE contrast enhancement, resizing, and $[-1, 1]$ tensor normalization.
-- `src/pipeline/emotion_predictor.py`: Orchestrates detection, preprocessing, forward pass, and temporal smoothing.
-- `src/utils/visualizer.py`: Visual overlay engine rendering bounding boxes, probability meters, and FPS counters.
-- `src/utils/metrics.py`: Computes precision, recall, F1-scores, and confusion matrix visualizations.
-- `main.py`: Command-line interface with subcommands `predict`, `video`, `live`, `train`, `evaluate`, and `test`.
+
+The code is separated into packages according to their responsibilities:
+
+- `config/config.py`: Stores configuration values, hyperparameters, color maps, and emotion labels.
+- `src/models/emotion_cnn.py`: Defines the `EmotionResidualCNN` with three residual stages, dropout, and classification layers.
+- `src/data/dataset.py`: Handles FER-2013 loading, data augmentation, and benchmark data preparation.
+- `src/pipeline/face_detector.py`: Handles frontal face detection using the OpenCV Haar Cascade and applies padding to detected regions.
+- `src/pipeline/preprocessor.py`: Performs face cropping, CLAHE enhancement, resizing, and normalization to the `[-1, 1]` range.
+- `src/pipeline/emotion_predictor.py`: Connects detection, preprocessing, model inference, and temporal smoothing.
+- `src/utils/visualizer.py`: Draws bounding boxes, probability information, and FPS on the output.
+- `src/utils/metrics.py`: Calculates precision, recall, F1-scores, and confusion matrix visualizations.
+- `main.py`: Provides the CLI commands `predict`, `video`, `live`, `train`, `evaluate`, and `test`.
 
 ---
 
 ## 10. Screenshots / Results
-- **Automated Test Results**: 8 passing unit tests verifying model forward pass, tensor dimensionality, preprocessor bounds, and face detector initialization.
-- **Inference Speed**: Average inference time of 12.4 ms per face on CPU; video processing throughput exceeding 35 FPS.
-- **Classification Output**: Successful prediction across sample inputs with class-wise probability breakdowns and formatted bounding box overlays stored in `results/`.
-- **Confusion Matrix**: Generated and saved in `results/confusion_matrix.png`.
+
+The current project results include:
+
+- **Automated Test Results**: 8 unit tests passing for the model, tensor dimensions, preprocessing, and face detector.
+- **Inference Speed**: Average inference time of **12.4 ms per face on CPU**, with video processing above **35 FPS**.
+- **Classification Output**: Sample predictions include the predicted class, class probabilities, and bounding-box overlays saved under `results/`.
+- **Confusion Matrix**: The generated confusion matrix is saved as `results/confusion_matrix.png`.
 
 ---
 
 ## 11. Testing Approach
-- **Unit Testing**: Implemented via `pytest` covering:
-  - Tensor dimensionality checks: $(B, 1, 48, 48) \rightarrow (B, 7)$.
-  - Preprocessor output range verification: $\min \ge -1.0, \max \le 1.0$.
-  - Detection edge cases: Handling empty frames, None inputs, and synthetic test faces.
-- **Integration & Validation Testing**: End-to-end CLI execution verifying command routing (`predict`, `evaluate`, `train`, `test`).
+
+Testing was done using `pytest` and covers both individual components and complete CLI flows.
+
+### Unit Testing
+
+The test suite checks:
+
+- Tensor dimensions:
+
+```text
+(B, 1, 48, 48) -> (B, 7)
+```
+
+- Preprocessor output range:
+
+```text
+min >= -1.0
+max <= 1.0
+```
+
+- Detector edge cases such as empty frames, `None` inputs, and synthetic test faces.
+
+### Integration & Validation Testing
+
+The CLI was also tested to make sure the main commands are routed correctly:
+
+```text
+predict
+evaluate
+train
+test
+```
 
 ---
 
 ## 12. Challenges Faced
-1. **Cross-Platform Face Detector Integration**: Ensuring OpenCV Haar Cascade paths work seamlessly across Windows, Linux, and macOS without hardcoded file paths. Resolved using `cv2.data.haarcascades`.
-2. **Headless Execution Constraints**: Ensuring that running in headless server environments without attached monitors or webcams does not crash OpenCV. Resolved by incorporating graceful fallbacks and headless CLI commands.
-3. **Illumination Disparities**: Extreme lighting causing misclassification of subtle expressions. Mitigated by applying CLAHE before tensor normalization.
+
+### 1. Cross-Platform Face Detector Integration
+
+One issue was making sure the Haar Cascade file could be located correctly across different operating systems. Using `cv2.data.haarcascades` avoided relying on hardcoded local paths.
+
+### 2. Headless Execution Constraints
+
+The project also needed to work in environments where a display or webcam might not be available. CLI-based operations were kept independent from the live display functionality, and fallback handling was added for these cases.
+
+### 3. Illumination Disparities
+
+Strong lighting differences sometimes affected the appearance of facial features. Applying CLAHE before normalization helped make the input more consistent before it reached the model.
 
 ---
 
 ## 13. Learnings & Key Takeaways
-- Gained deep practical experience in designing residual convolutional architectures for constrained computer vision tasks.
-- Mastered the integration of classical feature processing (Haar cascades, CLAHE) with modern deep learning pipelines.
-- Developed robust software engineering practices including test-driven development, modular packaging, and CLI-driven design.
+
+Working on this project provided practical experience in several areas:
+
+- Designing and implementing a small residual CNN for a Computer Vision task.
+- Combining classical Computer Vision methods such as Haar Cascades and CLAHE with a deep learning model.
+- Building a complete inference pipeline instead of working only with the model itself.
+- Organizing a project into separate modules for configuration, data, models, processing, visualization, and testing.
+- Using automated tests to check individual components and CLI behavior.
 
 ---
 
 ## 14. Future Enhancements
-1. **Facial Landmark Attention**: Integrating 68-point facial landmark heatmaps to weight attention over eye and mouth regions.
-2. **Temporal 3D-CNN / LSTM Modeling**: Incorporating temporal recurrent layers to analyze micro-expression temporal dynamics across video sequences.
-3. **Mobile & Edge Deployment**: Quantizing weights with ONNX Runtime or INT8 TensorRT for embedded edge camera deployment.
+
+There are several directions in which the system could be extended:
+
+1. **Facial Landmark Attention**  
+   Add 68-point facial landmark information so that the model can focus more on important regions such as the eyes and mouth.
+
+2. **Temporal 3D-CNN / LSTM Modeling**  
+   Instead of treating video frames mostly as individual inputs, temporal models could be used to learn how facial expressions change over a sequence of frames.
+
+3. **Mobile & Edge Deployment**  
+   The model could be optimized and quantized using technologies such as ONNX Runtime or INT8 TensorRT for deployment on embedded or edge devices.
 
 ---
 
 ## 15. References
-1. Goodfellow, I. J., et al. (2013). "Challenges in representation learning: A report on three machine learning contests." *Neural Information Processing (ICONIP)*.
-2. He, K., Zhang, X., Ren, S., & Sun, J. (2016). "Deep Residual Learning for Image Recognition." *CVPR*.
-3. Viola, P., & Jones, M. (2001). "Rapid Object Detection using a Boosted Cascade of Simple Features." *CVPR*.
+
+1. Goodfellow, I. J., et al. (2013). *Challenges in representation learning: A report on three machine learning contests.* Neural Information Processing (ICONIP).
+2. He, K., Zhang, X., Ren, S., & Sun, J. (2016). *Deep Residual Learning for Image Recognition.* CVPR.
+3. Viola, P., & Jones, M. (2001). *Rapid Object Detection using a Boosted Cascade of Simple Features.* CVPR.
 4. OpenCV Library Documentation: https://docs.opencv.org/
 5. PyTorch Deep Learning Platform: https://pytorch.org/
