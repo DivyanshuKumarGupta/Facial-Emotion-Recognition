@@ -111,14 +111,12 @@ ComputerVisionProject/
 │   ├── test_model.py                   # Tests for CNN tensor shapes and forward pass
 │   └── test_preprocessor.py            # Tests for CLAHE and normalization ranges
 ├── docs/
-│   └── PROJECT_REPORT.md               # 15-section project report per Section 6
+│   ├── PROJECT_REPORT.md               # 15-section project report per Section 6
+│   └── ProjectReport.pdf               # Compiled PDF report for submission
 ├── sample_assets/
-│   ├── sample_face.jpg                 # Synthesized test face sample
-│   ├── angry_face.jpg                  # Test sample for angry expression
-│   ├── surprise_face.jpg               # Test sample for surprise expression
-│   └── create_sample.py                # Asset generator & weight initializer
+│   └── sample_face.jpg                 # Sample face image for CLI testing
 ├── models/
-│   └── emotion_model_weights.pth       # Serialized PyTorch model weights
+│   └── .gitkeep                        # Directory placeholder
 └── results/
     ├── prediction_result.jpg           # Output annotated prediction image
     ├── confusion_matrix.png            # Visual confusion matrix heatmap
@@ -263,7 +261,8 @@ tests/test_preprocessor.py::test_preprocessor_invalid_roi PASSED         [100%]
 ---
 
 ## Project Deliverables
-- **Project Report**: [docs/PROJECT_REPORT.md](docs/PROJECT_REPORT.md)
+- **Project Report (Markdown)**: [docs/PROJECT_REPORT.md](docs/PROJECT_REPORT.md)
+- **Project Report (PDF)**: [docs/ProjectReport.pdf](docs/ProjectReport.pdf)
 - **Project Statement**: [statement.md](statement.md)
 
 ---
