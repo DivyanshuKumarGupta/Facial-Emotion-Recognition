@@ -34,40 +34,12 @@ To overcome challenges posed by shadows, varying skin tones, and extreme lightin
 
 ## Architecture & Workflow
 
-```
-[Camera / Video / Image Feed]
-            │
-            ▼
-┌───────────────────────────────────────┐
-│ Face Detection Module (OpenCV Haar)   │
-│ - Frontal face localization           │
-│ - Bounding box margin padding         │
-└───────────────────┬───────────────────┘
-                    │
-                    ▼
-┌───────────────────────────────────────┐
-│ Preprocessor Pipeline                 │
-│ - Grayscale conversion                │
-│ - CLAHE Illumination normalization    │
-│ - Resize to 48x48 pixel matrix        │
-│ - Tensor normalization [-1.0, 1.0]    │
-└───────────────────┬───────────────────┘
-                    │
-                    ▼
-┌───────────────────────────────────────┐
-│ EmotionResidualCNN (PyTorch)          │
-│ - 3 Residual Convolutional Stages     │
-│ - Batch Normalization & Dropout       │
-│ - Softmax Probability Classifier      │
-└───────────────────┬───────────────────┘
-                    │
-                    ▼
-┌───────────────────────────────────────┐
-│ Presentation & Output Engine          │
-│ - Terminal summary & JSON metrics     │
-│ - Dynamic HUD bounding box annotation │
-│ - Real-time FPS & confidence meters   │
-└───────────────────────────────────────┘
+```mermaid
+flowchart TD
+    A["Camera / Video / Image Feed"] --> B["Face Detection Module (OpenCV Haar)<br/>• Frontal face localization<br/>• Bounding box margin padding"]
+    B --> C["Preprocessor Pipeline<br/>• Grayscale conversion<br/>• CLAHE Illumination normalization<br/>• Resize to 48x48 pixel matrix<br/>• Tensor normalization [-1.0, 1.0]"]
+    C --> D["EmotionResidualCNN (PyTorch)<br/>• 3 Residual Convolutional Stages<br/>• Batch Normalization & Dropout<br/>• Softmax Probability Classifier"]
+    D --> E["Presentation & Output Engine<br/>• Terminal summary & JSON metrics<br/>• Dynamic HUD bounding box annotation<br/>• Real-time FPS & confidence meters"]
 ```
 
 ---
@@ -140,9 +112,7 @@ ComputerVisionProject/
 │   ├── test_model.py                   # Tests for CNN tensor shapes and forward pass
 │   └── test_preprocessor.py            # Tests for CLAHE and normalization ranges
 ├── docs/
-│   ├── PROJECT_REPORT.md               # 15-section project report per Section 6
-│   ├── PROJECT_REPORT.pdf              # Compiled PDF report ready for portal submission
-│   └── generate_pdf.py                 # Automated PDF builder script
+│   └── PROJECT_REPORT.md               # 15-section project report per Section 6
 ├── sample_assets/
 │   ├── sample_face.jpg                 # Synthesized test face sample
 │   ├── angry_face.jpg                  # Test sample for angry expression
@@ -294,8 +264,7 @@ tests/test_preprocessor.py::test_preprocessor_invalid_roi PASSED         [100%]
 ---
 
 ## Project Deliverables
-- **Project Report (Markdown)**: [docs/PROJECT_REPORT.md](docs/PROJECT_REPORT.md)
-- **Project Report (PDF)**: [docs/PROJECT_REPORT.pdf](docs/PROJECT_REPORT.pdf) 
+- **Project Report**: [docs/PROJECT_REPORT.md](docs/PROJECT_REPORT.md)
 - **Project Statement**: [statement.md](statement.md)
 
 ---
