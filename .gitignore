@@ -1,31 +1,42 @@
-# Python artifacts
+# Python Bytecode & Cache
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .pytest_cache/
 
-# Virtual environments
+# Model Checkpoints & Large Weights (>10MB binary files)
+models/*.pth
+models/*.pt
+models/*.onnx
+models/*.bin
+models/*.h5
+checkpoints/
+*.ckpt
+
+# Output Runs & Temporary Generated Artifacts
+results/
+runs/
+*.log
+
+# Environments & Dependencies
 venv/
 env/
 ENV/
 .venv/
+env.bak/
+venv.bak/
 
-# Model checkpoints and large weight files (keep only lightweight demo weights)
-models/*.pth
-!models/emotion_model_weights.pth
-checkpoints/
-
-# Data artifacts
+# Data & Large Datasets
 data/raw/
+data/*.csv
 *.csv.gz
+*.tar.gz
+*.zip
 
-# IDE and OS
+# IDEs & System Files
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
-
-# Output recordings / temporary runs
-results/
-runs/
+desktop.ini
