@@ -1,12 +1,6 @@
-# Real-Time Facial Emotion Recognition System (FER-2013)
+# Real-Time Facial Emotion Recognition System
 
-[![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-EE4C2C.svg)](https://pytorch.org/)
-[![OpenCV](https://img.shields.io/badge/OpenCV-4.8%2B-5C3EE8.svg)](https://opencv.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/Tests-8%20Passed-brightgreen.svg)]()
-
-An end-to-end, production-grade Computer Vision and Deep Learning system for real-time facial expression and emotion recognition. Built using a custom Deep Residual Convolutional Neural Network (`EmotionResidualCNN`) trained and evaluated on the **FER-2013** benchmark dataset.
+As part of BYOP , I worked on an end-to-end, production-grade Computer Vision and Deep Learning system for real-time facial expression and emotion recognition. Built using a custom Deep Residual Convolutional Neural Network (`EmotionResidualCNN`) trained and evaluated on the **FER-2013** benchmark dataset.
 
 
 ---
