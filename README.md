@@ -1,7 +1,6 @@
 # Real-Time Facial Emotion Recognition System
 
-As part of BYOP , I worked on an end-to-end, production-grade Computer Vision and Deep Learning system for real-time facial expression and emotion recognition. Built using a custom Deep Residual Convolutional Neural Network (`EmotionResidualCNN`) trained and evaluated on the **FER-2013** benchmark dataset.
-
+As part of the BYOP project, I built a facial expression recognition system in PyTorch and OpenCV using the FER-2013 dataset. It combines a custom Residual CNN (`EmotionResidualCNN`) with OpenCV face detection and CLAHE contrast enhancement, supporting both command-line execution and an interactive Streamlit web interface.
 
 ---
 
@@ -26,9 +25,9 @@ As part of BYOP , I worked on an end-to-end, production-grade Computer Vision an
 ---
 
 ## Overview
-Human facial expressions convey over 50% of emotional cues in interpersonal interaction. This project provides a robust, low-latency facial emotion recognition pipeline capable of identifying human emotions from live webcam streams, recorded videos, and still photographs.
+This project recognizes facial emotions from a live webcam feed, a video file, or an input photo. The pipeline detects faces using OpenCV, balances uneven lighting using CLAHE, and feeds standardized 48x48 grayscale crops into a lightweight PyTorch Residual CNN to classify expressions into seven emotions: Angry, Disgust, Fear, Happy, Sad, Surprise, and Neutral.
 
-To overcome challenges posed by shadows, varying skin tones, and extreme lighting, the system incorporates **Contrast Limited Adaptive Histogram Equalization (CLAHE)** coupled with a multi-stage **Residual CNN** to maintain high frame-rates (>30 FPS) on standard CPU hardware.
+The program runs directly from the terminal without needing any GUI setup, making it straightforward to test in headless environments, containers, or automated evaluation pipelines.
 
 ---
 
