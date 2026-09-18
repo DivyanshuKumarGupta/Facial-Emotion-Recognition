@@ -1,4 +1,4 @@
-## 👤 Student Details
+## 👤 STUDENT DETAILS
 - **Name:** Divyanshu Kumar Gupta
 - **Registration Number:** 24BAI10028
 - **Course:** Computer Vision  
